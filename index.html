@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Jeopardy</title>
+    <style>
+        body {
+            background-color: darkblue;
+            color: white;
+            font-family: 'Press Start 2P', sans-serif;
+            text-align: center;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .board {
+            background-color: navy;
+            border: 3px solid white;
+            display: inline-block;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .title {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .wager-section, .question-section, .answer-section {
+            margin: 20px;
+        }
+        input {
+            font-size: 20px;
+            padding: 5px;
+            text-align: center;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            background-color: yellow;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: gold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="board">
+            <div class="title">Final Jeopardy!</div>
+
+            <div class="wager-section">
+                <p>Enter your wager:</p>
+                <input type="number" id="wager" min="0">
+                <button onclick="submitWager()">Submit Wager</button>
+            </div>
+
+            <div class="question-section" style="display: none;">
+                <p><strong>Final Jeopardy Question:</strong></p>
+                <p id="final-question">What is the name of the planet where Yoda exiled himself?</p>
+                <button onclick="showAnswer()">Submit Answer</button>
+            </div>
+
+            <div class="answer-section" style="display: none;">
+                <p>Enter your answer:</p>
+                <input type="text" id="final-answer">
+                <button onclick="checkAnswer()">Submit</button>
+            </div>
+
+            <div id="result" style="display: none; font-size: 24px; margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <script>
+        function submitWager() {
+            let wager = document.getElementById('wager').value;
+            if (wager === "" || wager < 0) {
+                alert("Please enter a valid wager.");
+                return;
+            }
+            document.querySelector('.wager-section').style.display = 'none';
+            document.querySelector('.question-section').style.display = 'block';
+        }
+
+        function showAnswer() {
+            document.querySelector('.question-section').style.display = 'none';
+            document.querySelector('.answer-section').style.display = 'block';
+        }
+
+        function checkAnswer() {
+            let answer = document.getElementById('final-answer').value.toLowerCase().trim();
+            let correctAnswer = "dagobah";
+
+            if (answer === correctAnswer) {
+                document.getElementById('result').innerHTML = "Correct! You win your wager.";
+            } else {
+                document.getElementById('result').innerHTML = "Incorrect. The correct answer was 'Dagobah'.";
+            }
+
+            document.querySelector('.answer-section').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
