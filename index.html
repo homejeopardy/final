@@ -1,91 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Jeopardy Wager</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Korinna&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeopardy Final</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1e3a8a;
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      overflow: hidden;
+    }
 
-        body {
-            font-family: 'Arial', Arial, sans-serif;
-            background-color: #060ce9;
-            color: #ffffff;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            background-color: #1a21aa;
-            border: 5px solid #ffffff;
-            border-radius: 15px;
-            padding: 20px;
-            max-width: 400px;
-            margin: 50px auto;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-        h2 {
-            color: #ffffff;
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-size: 18px;
-        }
-        input {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        #current-cost {
-            background-color: #3439b3;
-            color: #ffffff;
-        }
-        #wager {
-            background-color: #4d52bd;
-            color: #ffffff;
-        }
-        #answer {
-            background-color: #676bc6;
-            color: #ffffff;
-        }
-        button {
-            background-color: #115ff4;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0e4ccf;
-        }
-    </style>
-    <script>
-        function validateWager() {
-            let cost = parseFloat(document.getElementById('current-cost').value) || 0;
-            let wager = parseFloat(document.getElementById('wager').value) || 0;
-            if (wager > cost) {
-                alert("Wager cannot be greater than the current cost.");
-                document.getElementById('wager').value = cost;
-            }
-        }
-    </script>
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 5px;
+      border: 2px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #fbbf24;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .result {
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 1s ease-in;
+    }
+
+    .show-result {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Final Jeopardy Wager</h2>
-        <label for="wager">Wager:</label>
-        <input type="number" id="wager" placeholder="Enter wager" min="0" oninput="validateWager()">
-        
-        <label for="answer">Answer:</label>
-        <input type="text" id="answer" placeholder="Enter answer">
+  <div class="container">
+    <div id="input-section">
+      <input type="number" id="wager" placeholder="Enter your wager" />
+      <input type="text" id="answer" placeholder="Enter your answer" />
+      <button onclick="lockIn()">Lock In</button>
     </div>
+
+    <div id="result-section" class="result">
+      <p id="display-wager"></p>
+      <p id="display-answer"></p>
+    </div>
+  </div>
+
+  <script>
+    function lockIn() {
+      const wager = document.getElementById('wager').value;
+      const answer = document.getElementById('answer').value;
+
+      // Hide input fields
+      document.getElementById('input-section').style.display = 'none';
+
+      // Show the result section with animation
+      document.getElementById('result-section').classList.add('show-result');
+      document.getElementById('display-wager').textContent = `Wager: $${wager}`;
+      document.getElementById('display-answer').textContent = `Answer: ${answer}`;
+    }
+  </script>
 </body>
 </html>
